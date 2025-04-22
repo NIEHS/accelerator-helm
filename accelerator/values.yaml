@@ -97,3 +97,107 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+#--------------------- mongo -------------------------
+
+mongodb:
+
+  # see https://artifacthub.io/packages/helm/bitnami/mongodb for values
+
+  image:
+    registry: docker.io
+    repository: bitnami/mongodb
+    tag: 8.0.8-debian-12-r0
+    digest: ""
+    ## Specify a imagePullPolicy
+    ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
+    ##
+    pullPolicy: IfNotPresent
+
+  ##
+  architecture: standalone
+  ## @param useStatefulSet Set to true to use a StatefulSet instead of a Deployment (only when `architecture=standalone`)
+  ##
+  useStatefulSet: false
+  ## MongoDB(&reg;) Authentication parameters
+  ##
+
+  auth:
+    ## @param auth.enabled Enable authentication
+    ## ref: https://docs.mongodb.com/manual/tutorial/enable-authentication/
+    ##
+    enabled: true
+    ## @param auth.rootUser MongoDB(&reg;) root user
+    ##
+    rootUser: root
+    ## @param auth.rootPassword MongoDB(&reg;) root password
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#setting-the-root-user-and-password-on-first-run
+    ##
+    rootPassword: ""
+    ## MongoDB(&reg;) custom users and databases
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#creating-a-user-and-database-on-first-run
+    ## @param auth.usernames List of custom users to be created during the initialization
+    ## @param auth.passwords List of passwords for the custom users set at `auth.usernames`
+    ## @param auth.databases List of custom databases to be created during the initialization
+    ##
+    usernames: []
+    passwords: []
+    databases: []
+
+
+#--------------------- END mongo ---------------------
+
+
+
+
+#--------------------- airflow -------------------------
+
+airflow:
+
+  # see https://artifacthub.io/packages/helm/apache-airflow/airflow for values
+
+  # Ingress configuration
+  ingress:
+    # Enable all ingress resources (deprecated - use ingress.web.enabled and ingress.flower.enabled)
+    enabled: ~
+
+    # Configs for the Ingress of the web Service
+    web:
+      # Enable web ingress resource
+      enabled: false
+
+      # Annotations for the web Ingress
+      annotations: {}
+
+      # The path for the web Ingress
+      path: "/"
+
+      # The pathType for the above path (used only with Kubernetes v1.19 and above)
+      pathType: "ImplementationSpecific"
+
+      # The hostname for the web Ingress (Deprecated - renamed to `ingress.web.hosts`)
+      host: ""
+
+      # The hostnames or hosts configuration for the web Ingress
+      hosts: []
+      #   # The hostname for the web Ingress (templated)
+      # - name: ""
+      #   # configs for web Ingress TLS
+      #   tls:
+      #     # Enable TLS termination for the web Ingress
+      #     enabled: false
+      #     # the name of a pre-created Secret containing a TLS private key and certificate
+      #     secretName: ""
+
+      # The Ingress Class for the web Ingress (used only with Kubernetes v1.19 and above)
+      ingressClassName: ""
+
+      # configs for web Ingress TLS (Deprecated - renamed to `ingress.web.hosts[*].tls`)
+      tls:
+        # Enable TLS termination for the web Ingress
+        enabled: false
+        # the name of a pre-created Secret containing a TLS private key and certificate
+        secretName: ""
+
+
+#--------------------- END airflow -------------------------
