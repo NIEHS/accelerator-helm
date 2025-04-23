@@ -145,6 +145,84 @@ mongodb:
     databases: []
 
 
+  ## Service parameters
+  ##
+  service:
+    ## @param service.nameOverride MongoDB(&reg;) service name
+    ##
+    nameOverride: "mongo-nodeport-service"
+    ## @param service.type Kubernetes Service type (only for standalone architecture)
+    ##
+    type: NodePort
+    ## @param service.portName MongoDB(&reg;) service port name (only for standalone architecture)
+    ##
+    portName: mongodb
+    ## @param service.ports.mongodb MongoDB(&reg;) service port.
+    ##
+    ports:
+      mongodb: 27017
+    ## @param service.nodePorts.mongodb Port to bind to for NodePort and LoadBalancer service types (only for standalone architecture)
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+    ##
+    nodePorts:
+      mongodb: "27017"
+    ## @param service.clusterIP MongoDB(&reg;) service cluster IP (only for standalone architecture)
+    ## e.g:
+    ## clusterIP: None
+    ##
+    clusterIP: ""
+    ## @param service.externalIPs Specify the externalIP value ClusterIP service type (only for standalone architecture)
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
+    ##
+    externalIPs: []
+    ## @param service.loadBalancerIP loadBalancerIP for MongoDB(&reg;) Service (only for standalone architecture)
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer
+    ##
+    loadBalancerIP: ""
+    ## @param service.loadBalancerClass loadBalancerClass for MongoDB(&reg;) Service (only for standalone architecture)
+    # ref: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-class
+    loadBalancerClass: ""
+    ## @param service.loadBalancerSourceRanges Address(es) that are allowed when service is LoadBalancer (only for standalone architecture)
+    ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+    ##
+    loadBalancerSourceRanges: []
+    ## @param service.allocateLoadBalancerNodePorts Wheter to allocate node ports when service type is LoadBalancer
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation
+    ##
+    allocateLoadBalancerNodePorts: true
+    ## @param service.extraPorts Extra ports to expose (normally used with the `sidecar` value)
+    ##
+    extraPorts: []
+    ## @param service.annotations Provide any additional annotations that may be required
+    ##
+    annotations: {}
+    ## @param service.externalTrafficPolicy service external traffic policy (only for standalone architecture)
+    ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+    ##
+    externalTrafficPolicy: Local
+    ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
+    ## Values: ClientIP or None
+    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/
+    ##
+    sessionAffinity: None
+    ## @param service.sessionAffinityConfig Additional settings for the sessionAffinity
+    ## sessionAffinityConfig:
+    ##   clientIP:
+    ##     timeoutSeconds: 300
+    ##
+    sessionAffinityConfig: {}
+    ## Headless service properties
+    ##
+    headless:
+      ## @param service.headless.annotations Annotations for the headless service.
+      ##
+      annotations: {}
+    ## @param service.publishNotReadyAddresses Indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready
+    ## ref: https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/
+    ##
+    publishNotReadyAddresses: false
+
+
 #--------------------- END mongo ---------------------
 
 
