@@ -150,10 +150,10 @@ mongodb:
   service:
     ## @param service.nameOverride MongoDB(&reg;) service name
     ##
-    nameOverride: "mongo-nodeport-service"
+    nameOverride: "mongo-service"
     ## @param service.type Kubernetes Service type (only for standalone architecture)
     ##
-    type: NodePort
+    type: ClusterIP
     ## @param service.portName MongoDB(&reg;) service port name (only for standalone architecture)
     ##
     portName: mongodb
@@ -165,7 +165,7 @@ mongodb:
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
     ##
     nodePorts:
-      mongodb: "27017"
+      mongodb: ""
     ## @param service.clusterIP MongoDB(&reg;) service cluster IP (only for standalone architecture)
     ## e.g:
     ## clusterIP: None
