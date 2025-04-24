@@ -35,7 +35,7 @@ mongodb:
 
 Here I cd into the accelerator subdir of the repo, give a namespace and point to my override values
 
-```
+```sh
 kubectl create namespace accelerator-dev
 
 helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelerator .
@@ -45,11 +45,17 @@ helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelera
 
 here i have alias k="kubectl" and am setting the default namespace as above
 
-```
+```sh
 k config set-context --current --namespace=accelerator-dev
 
 ```
 
 Be sure to port-forward 27017 (the mongodb service) and then you should be able to connect to the mongodb using a client
 such as MongoDB Compass
+
+Here we're uninstalling
+
+```sh
+helm uninstall accelerator -ns accelerator-dev
+```
 
