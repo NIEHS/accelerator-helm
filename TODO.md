@@ -3,6 +3,12 @@
 # see https://airflow.apache.org/docs/helm-chart/stable/production-guide.html
 
 
+redis error (see worker logs)
+
+[2025-04-25 15:59:48,287: ERROR/MainProcess] consumer: Cannot connect to redis://:**@accelerator-redis:6379/0: invalid username-password pair or user is disabled..                                                                                                                                                                    │
+│ Trying again in 2.00 seconds... (1/100)
+
+
 * ingres web and api server
 * postgres (volumes, backup, config into airflow)
 * mongo (volumes, backup, sharding?)

@@ -33,10 +33,12 @@ mongodb:
 
 
 
-Here I cd into the accelerator subdir of the repo, give a namespace and point to my override values
+Here I cd into the accelerator subdir of the repo, give a namespace and point to my override values. I then `cd accelerator` under the repo root. If I've just pulled the chart I need to bring in the dependencies in our Helm chart, so I run the `helm dependency build` command.
 
 ```sh
 kubectl create namespace accelerator-dev
+
+helm dependency build 
 
 helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelerator .
 
