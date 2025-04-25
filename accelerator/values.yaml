@@ -1,180 +1,6 @@
-# Default values for accelerator.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 
-# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
-replicaCount: 1
-
-# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-imagePullSecrets: []
-# This is to override the chart name.
-nameOverride: ""
-fullnameOverride: ""
-
-# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Automatically mount a ServiceAccount's API credentials?
-  automount: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: "accelerator"
-
-
-# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-# This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-dags:
-  # Where dags volume will be mounted. Works for both persistence and gitSync.
-  # If not specified, dags mount path will be set to $AIRFLOW_HOME/dags
-  mountPath: ~
-  persistence:
-    # Annotations for dags PVC
-    annotations: {}
-    # Enable persistent volume for storing dags
-    enabled: false
-    # Volume size for dags
-    size: 1Gi
-    # If using a custom storageClass, pass name here
-    storageClassName:
-    # access mode of the persistent volume
-    accessMode: ReadWriteOnce
-    ## the name of an existing PVC to use
-    existingClaim:
-    ## optional subpath for dag volume mount
-    subPath: ~
-  gitSync:
-    enabled: false
-
-    # git repo clone url
-    # ssh example: git@github.com:apache/airflow.git
-    # https example: https://github.com/apache/airflow.git
-    repo: https://github.com/apache/airflow.git
-    branch: v2-2-stable
-    rev: HEAD
-    # The git revision (branch, tag, or hash) to check out, v4 only
-    ref: v2-2-stable
-    depth: 1
-    # the number of consecutive failures allowed before aborting
-    maxFailures: 0
-    # subpath within the repo where dags are located
-    # should be "" if dags are at repo root
-    subPath: "tests/dags"
-    # if your repo needs a user name password
-    # you can load them to a k8s secret like the one below
-    #   ---
-    #   apiVersion: v1
-    #   kind: Secret
-    #   metadata:
-    #     name: git-credentials
-    #   data:
-    #     # For git-sync v3
-    #     GIT_SYNC_USERNAME: <base64_encoded_git_username>
-    #     GIT_SYNC_PASSWORD: <base64_encoded_git_password>
-    #     # For git-sync v4
-    #     GITSYNC_USERNAME: <base64_encoded_git_username>
-    #     GITSYNC_PASSWORD: <base64_encoded_git_password>
-    # and specify the name of the secret below
-    #
-    # credentialsSecret: git-credentials
-    #
-    #
-    # If you are using an ssh clone url, you can load
-    # the ssh private key to a k8s secret like the one below
-    #   ---
-    #   apiVersion: v1
-    #   kind: Secret
-    #   metadata:
-    #     name: airflow-ssh-secret
-    #   data:
-    #     # key needs to be gitSshKey
-    #     gitSshKey: <base64_encoded_data>
-    # and specify the name of the secret below
-    # sshKeySecret: airflow-ssh-secret
-    #
-    # Or set sshKeySecret with your key
-    # sshKey: |-
-    #   -----BEGIN {OPENSSH PRIVATE KEY}-----
-    #   ...
-    #   -----END {OPENSSH PRIVATE KEY}-----
-    #
-    # If you are using an ssh private key, you can additionally
-    # specify the content of your known_hosts file, example:
-    #
-    # knownHosts: |
-    #    <host1>,<ip1> <key1>
-    #    <host2>,<ip2> <key2>
-
-    # interval between git sync attempts in seconds
-    # high values are more likely to cause DAGs to become out of sync between different components
-    # low values cause more traffic to the remote git repository
-    # Go-style duration string (e.g. "100ms" or "0.1s" = 100ms).
-    # For backwards compatibility, wait will be used if it is specified.
-    period: 5s
-    wait: ~
-    # add variables from secret into gitSync containers, such proxy-config
-    envFrom: ~
-    # envFrom: |
-    #   - secretRef:
-    #       name: 'proxy-config'
-
-    containerName: git-sync
-    uid: 65533
-
-    env: []
-    # Supported env vars for gitsync can be found at https://github.com/kubernetes/git-sync
-    # - name: ""
-    #   value: ""
-
-    # Configuration for empty dir volume
-    # emptyDirConfig:
-    #   sizeLimit: 1Gi
-    #   medium: Memory
-
-    resources: {}
-    #  limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    #  requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+# in local values, python3 -c 'import secrets; print(secrets.token_hex(16))'
+webserverSecretKey: needtogeneratethis
 
 
 #--------------------- mongo -------------------------
@@ -305,8 +131,6 @@ mongodb:
 #--------------------- END mongo ---------------------
 
 
-
-
 #--------------------- airflow -------------------------
 
 airflow:
@@ -314,48 +138,30 @@ airflow:
   # see https://artifacthub.io/packages/helm/apache-airflow/airflow for values
   # values file: https://github.com/apache/airflow/blob/main/chart/values.yaml
 
-  # Ingress configuration
-  ingress:
-    # Enable all ingress resources (deprecated - use ingress.web.enabled and ingress.flower.enabled)
-    enabled: ~
+  # Default values for accelerator.
+  # This is a YAML-formatted file.
+  # Declare variables to be passed into your templates.
 
-    # Configs for the Ingress of the web Service
-    web:
-      # Enable web ingress resource
-      enabled: false
+  # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+  replicaCount: 1
 
-      # Annotations for the web Ingress
-      annotations: {}
+  # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  imagePullSecrets: []
+  # This is to override the chart name.
+  nameOverride: "accelerator-airflow"
+  fullnameOverride: "accelerator-airflow"
 
-      # The path for the web Ingress
-      path: "/"
+  # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: true
+    # Automatically mount a ServiceAccount's API credentials?
+    automount: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: "accelerator"
 
-      # The pathType for the above path (used only with Kubernetes v1.19 and above)
-      pathType: "ImplementationSpecific"
-
-      # The hostname for the web Ingress (Deprecated - renamed to `ingress.web.hosts`)
-      host: ""
-
-      # The hostnames or hosts configuration for the web Ingress
-      hosts: []
-      #   # The hostname for the web Ingress (templated)
-      # - name: ""
-      #   # configs for web Ingress TLS
-      #   tls:
-      #     # Enable TLS termination for the web Ingress
-      #     enabled: false
-      #     # the name of a pre-created Secret containing a TLS private key and certificate
-      #     secretName: ""
-
-      # The Ingress Class for the web Ingress (used only with Kubernetes v1.19 and above)
-      ingressClassName: ""
-
-      # configs for web Ingress TLS (Deprecated - renamed to `ingress.web.hosts[*].tls`)
-      tls:
-        # Enable TLS termination for the web Ingress
-        enabled: false
-        # the name of a pre-created Secret containing a TLS private key and certificate
-        secretName: ""
-
-
+  
 #--------------------- END airflow -------------------------

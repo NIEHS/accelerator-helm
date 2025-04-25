@@ -20,3 +20,22 @@
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
+
+
+
+
+
+
+
+
+
+
+
+
+Airflow port forwarding check:
+
+ubectl get service {{ .Values.airflow.service.nameOverride }} -o yaml
+
+and set up port forwarding 
+
+    kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ .Values.airflow.webserver.service }}  .Values.ports.airflowUI:8080 
