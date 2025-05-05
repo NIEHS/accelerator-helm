@@ -43,4 +43,4 @@ jobs:
         with:
           context: "{{defaultContext}}:accelerator/accel-worker-image"
           push: true
-          tags: NIEHS/acclerator-airflow:latest
+          tags: ghcr.io/acclerator-airflow:latest
