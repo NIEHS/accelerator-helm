@@ -27,11 +27,7 @@ mongodb:
     # you set for the 'root' user in mongodb
 
 
-
-
 ```
-
-
 
 Here I cd into the accelerator subdir of the repo, give a namespace and point to my override values. I then `cd accelerator` under the repo root. If I've just pulled the chart I need to bring in the dependencies in our Helm chart, so I run the `helm dependency build` command.
 
