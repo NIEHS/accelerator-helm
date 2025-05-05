@@ -37,10 +37,11 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+
+      - name: Build the Docker image
+        run: docker build . -t ghcr.io/NIEHS/accel-airflow:latest
+      
+      - name: publish
+        run:  docker push ghcr.io/NIEHS/accel-airflow:latest
      
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: "{{defaultContext}}:accelerator/accel-worker-image"
-          push: true
-          tags: acclerator-helm/accel-worker-image:latest
+      
