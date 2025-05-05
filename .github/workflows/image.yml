@@ -44,4 +44,6 @@ jobs:
           context: "{{defaultContext}}:accelerator/accel-worker-image"
           registry: ghcr.io
           push: true
-          tags: niehs/acclerator-airflow:latest
+          tags: |
+            gcr.io/acclerator-helm/accel-worker-image:latest
+            gcr.io/acclerator-helm/accel-worker-image:${{ env.GITHUB_TAG }}
