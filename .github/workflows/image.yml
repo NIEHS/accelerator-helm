@@ -42,7 +42,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: "{{defaultContext}}:accelerator/accel-worker-image"
-          registry: ghcr.io
           push: true
           tags: |
             gcr.io/acclerator-helm/accel-worker-image:latest
