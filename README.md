@@ -9,8 +9,6 @@ Helm charts and support for Navigator/Accelerator infrastructure
 * Helm Docs - https://helm.sh/docs/
 
 
-
-
 ## Basic usage
 
 ### Development
