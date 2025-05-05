@@ -41,5 +41,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: accelerator/accel-worker-image
           push: true
           tags: NIEHS/acclerator-airflow:latest
