@@ -168,5 +168,7 @@ airflow:
     airflow:
       repository: ghcr.io/niehs/accel-airflow
       tag: latest
+      pullPolicy: IfNotPresent
+
   
 #--------------------- END airflow -------------------------
