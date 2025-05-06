@@ -163,5 +163,10 @@ airflow:
     # If not set and create is true, a name is generated using the fullname template
     name: "accelerator"
 
+  # custom airflow image with accel dependencies, see: https://github.com/NIEHS/accelerator-helm/pkgs/container/accel-airflow
+  images:
+    airflow:
+      repository: ghcr.io/niehs/accel-airflow
+      tag: latest
   
 #--------------------- END airflow -------------------------
