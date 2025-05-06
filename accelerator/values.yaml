@@ -164,11 +164,11 @@ airflow:
     name: "accelerator"
 
   # custom airflow image with accel dependencies, see: https://github.com/NIEHS/accelerator-helm/pkgs/container/accel-airflow
-  images:
-    airflow:
-      repository: ghcr.io/niehs/accel-airflow
-      tag: latest
-      pullPolicy: IfNotPresent
+  #images:
+  #  airflow:
+  #    repository: ghcr.io/niehs/accel-airflow
+  #    tag: latest
+  #    pullPolicy: IfNotPresent
 
   
 #--------------------- END airflow -------------------------
