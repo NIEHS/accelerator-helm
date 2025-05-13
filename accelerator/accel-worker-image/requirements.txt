@@ -1,4 +1,2 @@
-jsonschema~=4.23.0
-pymongo~=4.11.2
-PyYAML~=6.0.2
-git+https://github.com/NIEHS/accelerator-core@develop
+virtualenv~=2024.4.1
+cloudpickle~=3.1.1
