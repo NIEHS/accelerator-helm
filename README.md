@@ -55,3 +55,9 @@ Here we're uninstalling
 helm uninstall accelerator -ns accelerator-dev
 ```
 
+## Custom Accelerator Worker
+
+This repo contains a custom airflow container for workers that includes some additional system and python dependencies.
+See the [accel-worker-image](./accelerator/accel-worker-image/README.md)
+
+The build of the custom container is automated by a GitHub action and the image is stored at: ghcr.io/niehs/accel-airflow:TAG, with latest being the default
