@@ -170,9 +170,9 @@ airflow:
       tag: latest
       pullPolicy: IfNotPresent
 
-  config:
-    core:
-      enable_xcom_pickling: 'True'
+  #config:
+    #core:
+      #enable_xcom_pickling: 'True'
 
   
 #--------------------- END airflow -------------------------
