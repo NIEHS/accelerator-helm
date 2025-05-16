@@ -167,7 +167,7 @@ airflow:
   images:
     airflow:
       repository: ghcr.io/niehs/accel-airflow
-      tag: latest
+      tag: mongo
       pullPolicy: IfNotPresent
 
   config:
