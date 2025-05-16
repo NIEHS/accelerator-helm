@@ -37,6 +37,7 @@ docker push ghcr.io/NAMESPACE/IMAGE_NAME:latest
 
 Replace NAMESPACE with the name of the personal account or organization to which you want the image to be scoped.
 
+
 This example pushes the 2.5 version of the image.
 
 ```sh
