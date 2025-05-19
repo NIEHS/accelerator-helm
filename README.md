@@ -32,6 +32,9 @@ Here I cd into the accelerator subdir of the repo, give a namespace and point to
 ```sh
 kubectl create namespace accelerator-dev
 
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add airflow https://airflow.apache.org/
+
 helm dependency build 
 
 helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelerator .
