@@ -1,9 +1,9 @@
 dependencies:
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
-  version: 16.5.6
+  version: 16.5.8
 - name: airflow
   repository: https://airflow.apache.org/
   version: 1.16.0
-digest: sha256:6226292bc182f1c875aef25e226f23168cc73f7cb431b1b9a0a7a7639a336ddb
-generated: "2025-05-08T11:48:22.157354-04:00"
+digest: sha256:13b23acf7604dd97db8fac3496ca48a0c88ca21c6d09d36d4d16eaac3245af41
+generated: "2025-05-16T13:21:37.691183-04:00"
