@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# On updates, rebuild the airflow docker image with requirements and push to the Git repo
 
 name: CI
 
@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
 
@@ -23,14 +23,28 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      #- name: Set up QEMU
+      #  uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: check out the repo
+        uses: actions/checkout@v4
+
+      - name: Build the Docker image
+        run: docker build ./accelerator/accel-worker-image -t ghcr.io/niehs/accel-airflow:latest
+      
+      - name: publish
+        run:  docker push ghcr.io/niehs/accel-airflow:latest
+     
+      

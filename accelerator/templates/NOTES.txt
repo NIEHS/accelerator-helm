@@ -9,6 +9,12 @@ To learn more about the release, try:
   $ helm status {{ .Release.Name }}
   $ helm get all {{ .Release.Name }}
 
+
+========================================================================================================================
+
+MongoDB
+_______
+
 MongoDB port forwarding can be done via port forwarding the mongo service, check:
 
 kubectl get service {{ .Values.mongodb.service.nameOverride }} -o yaml
@@ -18,3 +24,8 @@ and set up port forwarding
     kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ .Values.mongodb.service.nameOverride }} 27017:27017 
 
 
+========================================================================================================================
+
+
+Airflow
+_______
