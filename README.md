@@ -64,3 +64,28 @@ This repo contains a custom airflow container for workers that includes some add
 See the [accel-worker-image](./accelerator/accel-worker-image/README.md)
 
 The build of the custom container is automated by a GitHub action and the image is stored at: ghcr.io/niehs/accel-airflow:TAG, with latest being the default
+
+## Accelerator Variables
+
+For development environments, an example Accelerator variable set looks like this:
+
+```json
+
+{
+    "accelerator.xcom.tempfiles.supported": true,
+    "accelerator.xcom.tempfile.path": "/opt/xcom"
+}
+
+
+```
+
+## Connections
+
+A connection to Mongo needs to be created as follows
+
+![image](https://github.com/user-attachments/assets/c81343c1-2f2a-4f3c-ad53-eaef30ba169d)
+
+
+
+
+
