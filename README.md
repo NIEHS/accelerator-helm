@@ -100,7 +100,17 @@ password: ---password as set in helm values.yaml---
 port: 27017
 
 
+# Notes
 
+
+If you run into an error where you cannot see connections in Airflow, it may be due to the fernet key, you can follow these steps:
+
+1) Shell into the web container
+2) Shell into the database running ```sh airflow db shell ```
+3) Delete the connections from the db: ```sh delete from connection; ```
+
+
+you should now be able to go in and edit connections
 
 
 
