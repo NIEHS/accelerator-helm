@@ -35,6 +35,8 @@ kubectl create namespace accelerator-dev
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add airflow https://airflow.apache.org/
 
+cd accelerator
+
 helm dependency build 
 
 helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelerator .
@@ -84,6 +86,19 @@ For development environments, an example Accelerator variable set looks like thi
 A connection to Mongo needs to be created as follows
 
 ![image](https://github.com/user-attachments/assets/c81343c1-2f2a-4f3c-ad53-eaef30ba169d)
+
+Suggested values for local:
+
+
+connection id: mongo_default
+connection type: http
+description: local rancher accel
+host: mongo-service
+schema: admin
+login: root
+password: ---password as set in helm values.yaml---
+port: 27017
+
 
 
 
