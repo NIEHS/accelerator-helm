@@ -7,6 +7,7 @@ Helm charts and support for Navigator/Accelerator infrastructure
 ## Links:
 
 * Helm Docs - https://helm.sh/docs/
+* Airflow Command Ref - https://airflow.apache.org/docs/apache-airflow/stable/cli-and-env-variables-ref.html
 
 
 ## Basic usage
@@ -97,11 +98,13 @@ host: mongo-service
 schema: admin
 login: root
 password: ---password as set in helm values.yaml---
-port: 27017
+port:  
 
 
 # Notes
 
+
+## Connections page shows error
 
 If you run into an error where you cannot see connections in Airflow, it may be due to the fernet key, you can follow these steps:
 
@@ -111,6 +114,15 @@ If you run into an error where you cannot see connections in Airflow, it may be 
 
 
 you should now be able to go in and edit connections
+
+
+## redis pod does not terminate
+
+Forcefully delete it with:
+
+```k delete pod --grace-period=0 --force accelerator-redis-0```
+
+NB this uses the k alias for kubectl
 
 
 
