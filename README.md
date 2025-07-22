@@ -124,5 +124,9 @@ Forcefully delete it with:
 
 NB this uses the k alias for kubectl
 
+## importing and exporting connections
+
+See https://airflow.apache.org/docs/apache-airflow/stable/howto/usage-cli.html#cli-export-connections
+
 
 
