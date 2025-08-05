@@ -128,5 +128,13 @@ NB this uses the k alias for kubectl
 
 See https://airflow.apache.org/docs/apache-airflow/stable/howto/usage-cli.html#cli-export-connections
 
+## staging
+
+Use 
+
+```
+helm install -f ../../accel-values/accel-values-staging.yaml -n ods-test accelerator .
+```
+
 
 
