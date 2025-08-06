@@ -18,14 +18,14 @@ version: 0.1.1
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "1.16.1"
+appVersion: "1.16.2"
 
 dependencies:
 - name: mongodb
   version: ~16.5.1
   repository: "https://charts.bitnami.com/bitnami"
 - name: airflow 
-  version:  ~1.16.0
+  version:  ~1.17.0
   repository: "https://airflow.apache.org/"
 
 
