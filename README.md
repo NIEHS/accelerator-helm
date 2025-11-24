@@ -136,5 +136,30 @@ Use
 helm install -f ../../accel-values/accel-values-staging.yaml -n ods-test accelerator .
 ```
 
+## connection string tips
 
+Recommended patterns depending on what you’re doing
+### For quick local debugging
+
+Use exactly what’s now working:
+
+mongodb://root:PASSWORD@localhost:27017/admin?replicaSet=rs0&directConnection=true
+
+### If you don’t care about replica set behavior locally
+
+You can simplify:
+
+mongodb://root:PASSWORD@localhost:27017/admin
+
+
+(no replicaSet, no directConnection)
+
+###add In-cluster apps (no port-forward, running in Kubernetes)
+
+Those should not use localhost. They should use the service DNS name and can omit directConnection=true, e.g.:
+
+mongodb://root:PASSWORD@mongo-service.accelerator-dev.svc.cluster.local:27017/admin?replicaSet=rs0
+
+
+(Or just mongo-service:27017 from same namespace.)
 
