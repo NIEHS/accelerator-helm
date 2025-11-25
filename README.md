@@ -137,14 +137,17 @@ helm install -f ../../accel-values/accel-values-staging.yaml -n ods-test acceler
 ```
 
 ## connection string tips
+```
+from pymongo import MongoClient
 
-Recommended patterns depending on what you’re doing
-### For quick local debugging
+client = MongoClient(
+    "mongodb://<username>:<password>@"
+    "mongo-service-0.mongo-service-headless.accelerator-dev.svc.cluster.local:27017/"
+    "?replicaSet=rs0&authSource=admin"
+)
 
-Use exactly what’s now working:
-
-mongodb://root:PASSWORD@localhost:27017/admin?replicaSet=rs0&directConnection=true
-
+db = client["<your_database_name>"]
+```
 ### If you don’t care about replica set behavior locally
 
 You can simplify:
