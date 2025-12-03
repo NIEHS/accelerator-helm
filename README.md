@@ -120,7 +120,9 @@ you should now be able to go in and edit connections
 
 Forcefully delete it with:
 
-```k delete pod --grace-period=0 --force accelerator-redis-0```
+```
+k delete pod --grace-period=0 --force accelerator-redis-0
+```
 
 NB this uses the k alias for kubectl
 
