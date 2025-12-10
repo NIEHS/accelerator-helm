@@ -2,8 +2,11 @@ dependencies:
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
   version: 18.1.10
+- name: postgres
+  repository: https://cloudpirates-io.github.io/helm-charts
+  version: 0.12.4
 - name: airflow
   repository: https://airflow.apache.org/
   version: 1.18.0
-digest: sha256:a10f3dabe77d8b709b6509dbb95bb5523f542de1a233d725b51899d20e43a45f
-generated: "2025-12-02T09:48:41.912006-05:00"
+digest: sha256:d69ec043259d508a6885dba060285303aa6fbbfea5e3648e61ea7349f0264628
+generated: "2025-12-08T10:13:45.928656-05:00"

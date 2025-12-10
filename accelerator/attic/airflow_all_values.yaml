@@ -451,6 +451,7 @@ data:
   # These secrets must be created manually, eg:
   #
   # kind: Secret
+  
   # apiVersion: v1
   # metadata:
   #   name: custom-airflow-metadata-secret

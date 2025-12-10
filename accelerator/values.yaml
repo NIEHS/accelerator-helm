@@ -1,7 +1,9 @@
+global:
+  security:
+    allowInsecureImages: false
 
 # in local values, python3 -c 'import secrets; print(secrets.token_hex(16))'
 webserverSecretKey: needtogeneratethis
-
 
 #--------------------- mongo -------------------------
 
@@ -10,10 +12,10 @@ mongodb:
   # see https://artifacthub.io/packages/helm/bitnami/mongodb for values
 
   image:
-    registry: docker.io
-    repository: bitnami/mongodb
-    tag: 8.0.8-debian-12-r0
-    digest: ""
+    #registry: docker.io
+    #repository:  mongodb/mongodb-community-server
+    #tag: 7.0-ubi8
+    #digest: ""
     ## Specify a imagePullPolicy
     ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
     ##
@@ -22,6 +24,9 @@ mongodb:
   ##
   architecture: replicaset
   replicaCount: 1
+  replicaSet:
+    enabled: true
+    name: rs0
 
   ## @param useStatefulSet Set to true to use a StatefulSet instead of a Deployment (only when `architecture=standalone`)
   ##
@@ -53,7 +58,31 @@ mongodb:
 
   nameOverride: "mongo-service"
   fullnameOverride: "mongo-service"
+  initdbScripts:
+    create_accelerator_db.js: |
+      // Switch to (or create) the database
+      db = db.getSiblingDB("accelerator");
 
+      // --- Create collections ---
+      const collections = ["accelerator", "accelerator_temp"];
+
+      collections.forEach(col => {
+        if (!db.getCollectionNames().includes(col)) {
+          db.createCollection(col);
+        }
+
+        // Create compound unique index
+        db[col].createIndex(
+          {
+            "technical_metadata.original_source_link": 1,
+            "technical_metadata.original_source_identifier": 1
+          },
+          {
+            unique: true,
+            name: "original_source_compound_unique"
+          }
+        );
+      });
 
 
   ## Service parameters
@@ -64,10 +93,10 @@ mongodb:
     
     ## @param service.type Kubernetes Service type (only for standalone architecture)
     ##
-    type: NodePort
+    type: ClusterIP
     ## @param service.portName MongoDB(&reg;) service port name (only for standalone architecture)
     ##
-    portName: mongodb
+    #portName: mongodb
     ## @param service.ports.mongodb MongoDB(&reg;) service port.
     ##
     ports:
@@ -75,8 +104,8 @@ mongodb:
     ## @param service.nodePorts.mongodb Port to bind to for NodePort and LoadBalancer service types (only for standalone architecture)
     ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
     ##
-    nodePorts:
-      mongodb: 30017
+    #nodePorts:
+    #  mongodb: 30017
     ## @param service.clusterIP MongoDB(&reg;) service cluster IP (only for standalone architecture)
     ## e.g:
     ## clusterIP: None
@@ -136,10 +165,64 @@ mongodb:
 
 #--------------------- END mongo ---------------------
 
+#--------------------- postgres ----------------------
+
+postgres:
+
+  podAnnotations: {}
+  ## @param podLabels Map of labels to add to the pods
+  podLabels: 
+    app: accelerator
+    component: postgres 
+    environment: production
+
+
+
+  auth:
+    ## @param auth.username Name for a custom superuser to create at initialisation. (This will also create a database with the same name)
+    username: "airflow"
+    ## @param auth.database Alternative name for the default database to be created at initialisation
+    database: "airflow"
+    ## @param auth.existingSecret Name of existing secret to use for PostgreSQL credentials
+    #existingSecret: "postgres-credentials"
+    #secretKeys:
+      ## @param auth.secretKeys.adminPasswordKey Name of key in existing secret to use for PostgreSQL admin credentials
+    #  adminPasswordKey: "postgres-password"
+
+## @section PostgreSQL Configuration
+config:
+
+  ## @param config.pgHbaConfig Content of a custom pg_hba.conf file to be used instead of the default config
+  pgHbaConfig: ~
+
+
+
+
+#-------------------- END postgres -------------------
+
 
 #--------------------- airflow -------------------------
 
 airflow:
+
+  postgresql:
+    enabled: false 
+    #image:
+    #  registry: docker.io
+    #  repository: postgres
+    #  tag: 16.11-alpine3.23 
+
+  data:
+  
+    # Otherwise pass connection values in
+    metadataConnection:
+      user: airflow
+      pass: ~
+      protocol: postgresql
+      host: accelerator-postgres
+      port: 5432
+      db: airflow 
+      sslmode: disable
 
   # see https://artifacthub.io/packages/helm/apache-airflow/airflow for values
   # values file: https://github.com/apache/airflow/blob/main/chart/values.yaml

@@ -33,8 +33,25 @@ Here I cd into the accelerator subdir of the repo, give a namespace and point to
 ```sh
 kubectl create namespace accelerator-dev
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add airflow https://airflow.apache.org/
+```
+
+Now set up secrets...
+
+Postgres admin password
+
+```sh
+
+# Admin/superuser credentials
+kubectl create secret generic postgres-credentials --from-literal=postgres-password=your-admin-password
+
+
+```
+
+This secret is expected in the default values.yaml.
+
+
+
+```sh
 
 cd accelerator
 
@@ -60,6 +77,30 @@ Here we're uninstalling
 ```sh
 helm uninstall accelerator -ns accelerator-dev
 ```
+
+
+### Staging
+
+For staging, the procedures are the same, with differing namespaces
+
+
+
+```sh
+
+k config set-context --current --namespace=ods-test
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add airflow https://airflow.apache.org/
+
+cd accelerator
+
+helm dependency build 
+
+helm install -f ../../accel-values/accel-values-staging.yaml -n ods-test accelerator .
+
+
+```
+
 
 ## Custom Accelerator Worker
 
@@ -167,4 +208,18 @@ mongodb://root:PASSWORD@mongo-service.accelerator-dev.svc.cluster.local:27017/ad
 
 
 (Or just mongo-service:27017 from same namespace.)
+
+An example configuration as an airflow connection for mongo:
+
+name: mongo_default
+type: http
+
+description: rs0
+host: mongo-service-0.mongo-service-headless.accelerator-dev.svc.cluster.local
+user: root
+password: xxxx
+
+port: 27017
+schema: accelerator
+
 
