@@ -65,7 +65,7 @@ helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelera
 here i have alias k="kubectl" and am setting the default namespace as above
 
 ```sh
-k config set-context --current --namespace=accelerator-dev
+k 1-dev
 
 ```
 
@@ -134,7 +134,7 @@ Suggested values for local:
 
 connection id: mongo_default
 connection type: http
-description: local rancher accel
+description: rs0 
 host: mongo-service
 schema: admin
 login: root
@@ -215,7 +215,7 @@ name: mongo_default
 type: http
 
 description: rs0
-host: mongo-service-0.mongo-service-headless.accelerator-dev.svc.cluster.local
+host: x
 user: root
 password: xxxx
 
