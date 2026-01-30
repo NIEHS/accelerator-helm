@@ -2,11 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: excom-pvc
-  namespace: accelerator   # change if needed
+  namespace: accelerator
 spec:
-  volumeName: excom-pv        # 👈 forces the binding
+  volumeName: excom-pv        # force bind to that PV
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany           # RWX -> ReadWriteMany
   volumeMode: Filesystem
   resources:
     requests:

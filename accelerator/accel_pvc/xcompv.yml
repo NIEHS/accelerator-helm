@@ -13,7 +13,7 @@ spec:
   local:
     path: /ddn/gs1/project/ods/accelerator/xcom
   nodeAffinity:
-    required:
+    required: 
       nodeSelectorTerms:
       - matchExpressions:
         - key: kubernetes.io/hostname

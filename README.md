@@ -222,4 +222,12 @@ password: xxxx
 port: 27017
 schema: accelerator
 
+# tunneling to Mongo
+
+port forward mongodb pod on server using k9s
+
+open ssh tunnel on local machine: ➜  ~ ssh -L 27017:localhost:27017 user@accelserver
+
+update mongodb compass connection string to: mongodb://root:xxxxxxxx@127.0.0.1:27017/?directConnection=true&authSource=admin
+
 
