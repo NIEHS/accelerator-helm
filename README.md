@@ -65,7 +65,7 @@ helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelera
 here i have alias k="kubectl" and am setting the default namespace as above
 
 ```sh
-k 1-dev
+k  config set-context --current --namespace accelerator
 
 ```
 
