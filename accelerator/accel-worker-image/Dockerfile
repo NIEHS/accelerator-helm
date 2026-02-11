@@ -2,6 +2,7 @@ FROM apache/airflow:3.0.2
 USER root
 COPY requirements.txt /
 COPY cacert.pem /home/airflow/.local/lib/python3.12/site-packages/certifi/
+COPY NIH-FULL.pem /etc/ssl/certs
 
 RUN apt-get update && apt-get install -y git nano wget
 USER airflow
