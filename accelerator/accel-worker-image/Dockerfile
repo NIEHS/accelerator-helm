@@ -2,7 +2,7 @@ FROM apache/airflow:3.0.2
 USER root
 COPY requirements.txt /
 #COPY cacert.pem /home/airflow/.local/lib/python3.12/site-packages/certifi/
-COPY NIH-FULL.pem /usr/local/share/ca-certificates/
+COPY NIH-FULL.crt /usr/local/share/ca-certificates/
 COPY toxpipe.crt /etc/ssl/certs/
 ENV  REQUESTS_CA_BUNDLE=/home/airflow/.local/lib/python3.12/site-packages/certifi/cacert.pem
 
