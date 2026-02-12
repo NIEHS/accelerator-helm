@@ -3,7 +3,7 @@ USER root
 COPY requirements.txt /
 #COPY cacert.pem /home/airflow/.local/lib/python3.12/site-packages/certifi/
 COPY NIH-FULL.pem /usr/local/share/ca-certificates/
-COPY toxpipe.niehs.nih.gov.crt /etc/ssl/certs/
+COPY toxpipe.crt /etc/ssl/certs/
 ENV  REQUESTS_CA_BUNDLE=/home/airflow/.local/lib/python3.12/site-packages/certifi/cacert.pem
 
 RUN apt-get update && apt-get install -y git nano wget less
