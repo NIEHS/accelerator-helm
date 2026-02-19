@@ -1,0 +1,5 @@
+service:
+  name: mongodb-service
+  type: NodePort
+  port: 27017
+  nodePort: 32018 # Must be within range 30000–32767

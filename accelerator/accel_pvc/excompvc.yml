@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: excom-pvc
+  namespace: accelerator
+spec:
+  volumeName: excom-pv        # force bind to that PV
+  accessModes:
+    - ReadWriteMany           # RWX -> ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: local-storage

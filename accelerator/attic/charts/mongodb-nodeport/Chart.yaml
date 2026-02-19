@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mongodb-nodeport
+description: A Helm chart to expose MongoDB via NodePort
+type: application
+version: 0.1.0
+appVersion: "6.0"
