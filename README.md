@@ -57,7 +57,7 @@ cd accelerator
 
 helm dependency build 
 
-helm install -f ../../accel-values/accel-values.yaml -n accelerator-dev accelerator .
+helm install -f ../../accel-values/accel-values.yaml -n accelerator accelerator .
 
 
 ```
@@ -96,7 +96,7 @@ cd accelerator
 
 helm dependency build 
 
-helm install -f ../../accel-values/accel-values-staging.yaml -n ods-test accelerator .
+helm install -f ../../accel-values/accel-values-staging.yaml -n accelerator accelerator .
 
 
 ```
